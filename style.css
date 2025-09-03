@@ -62,7 +62,6 @@ body {
 .container {
   height: 70vh;
   display: flex;
-  padding-top: 20px;
   justify-content: center;
   align-items: center;
 }
@@ -143,4 +142,5 @@ body {
    justify-content:end;
    text-align:right;
    font-style: oblique;
+   margin-bottom:10px;
 }
