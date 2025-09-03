@@ -25,27 +25,44 @@ const resetGame = () => {//resets the game state
   msgContainer.classList.add("hide");
 };
 
-boxes.forEach((box) => {
+boxes.forEach((box, idx) => {
   box.addEventListener("click", () => {
     if (turnO) {
-      //playerO
+      // Player O (human)
       box.innerText = "O";
+      box.disabled = true;
       turnO = false;
-    } else {
-      //playerX
-      box.innerText = "X";
-      turnO = true;
-    }
-    box.disabled = true;
-    count++;
-
-    let isWinner = checkWinner();
-
-    if (count === 9 && !isWinner) {
-      gameDraw();
+      count++;
+      let isWinner = checkWinner();
+      if (count === 9 && !isWinner) {
+        gameDraw();
+        return;
+      }
+      // AI's turn (X)
+      setTimeout(aiMove, 400); // slight delay for realism
     }
   });
 });
+
+function aiMove() {
+  if (turnO) return; // Only move if it's X's turn
+  // Find all empty boxes
+  let emptyBoxes = [];
+  boxes.forEach((box, idx) => {
+    if (box.innerText === "") emptyBoxes.push(idx);
+  });
+  if (emptyBoxes.length === 0) return;
+  // Pick a random empty box
+  let moveIdx = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+  boxes[moveIdx].innerText = "X";
+  boxes[moveIdx].disabled = true;
+  turnO = true;
+  count++;
+  let isWinner = checkWinner();
+  if (count === 9 && !isWinner) {
+    gameDraw();
+  }
+}
 
 const gameDraw = () => {
   msg.innerText = `Game was a Draw.`;
