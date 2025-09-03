@@ -4,8 +4,17 @@ let newGameBtn = document.querySelector("#new-btn");
 let msgContainer = document.querySelector(".msg-container");
 let msg = document.querySelector("#msg");
 
+
 let turnO = true; //tracks whose turn it is player(O or X)
 let count = 0; //tracks the number of moves (to detect a draw).
+let mode = "ai"; // default mode
+const modeSelect = document.getElementById("mode");
+if (modeSelect) {
+  modeSelect.addEventListener("change", (e) => {
+    mode = e.target.value;
+    resetGame();
+  });
+}
 
 const winPatterns = [//defines all possible winning combinations
   [0, 1, 2],
@@ -38,8 +47,19 @@ boxes.forEach((box, idx) => {
         gameDraw();
         return;
       }
-      // AI's turn (X)
-      setTimeout(aiMove, 400); // slight delay for realism
+      if (mode === "ai") {
+        setTimeout(aiMove, 400); // AI's turn (X)
+      }
+    } else if (mode === "2p") {
+      // Player X (human)
+      box.innerText = "X";
+      box.disabled = true;
+      turnO = true;
+      count++;
+      let isWinner = checkWinner();
+      if (count === 9 && !isWinner) {
+        gameDraw();
+      }
     }
   });
 });

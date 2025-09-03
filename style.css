@@ -1,3 +1,50 @@
+/* Mode selection styles */
+#mode-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#mode-select label {
+  font-size: 1.2rem;
+  color: #222;
+  font-weight: 500;
+}
+
+#mode {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #b0413e;
+  font-size: 1rem;
+  background: #ffffc7;
+  color: #b0413e;
+  outline: none;
+  transition: border 0.2s;
+}
+
+#mode:focus {
+  border: 2px solid #548687;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #191913;
+  letter-spacing: 2px;
+}
+
+#reset-btn, #new-btn {
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+#reset-btn:hover, #new-btn:hover {
+  background: #548687;
+  color: #ffffc7;
+}
 * {
   margin: 0;
   padding: 0;
@@ -7,14 +54,10 @@ body {
   background-color: #548687;
   text-align: center;
 }
-h1{
-  padding-top: 60px;
-}
 
 .container {
   height: 70vh;
   display: flex;
-  padding-top: 20px;
   justify-content: center;
   align-items: center;
 }
