@@ -50,14 +50,19 @@ h1 {
   padding: 0;
 }
 
+
 body {
-  background-color: #548687;
+  background: linear-gradient(135deg, #548687 0%, #b0413e 100%);
+  min-height: 100vh;
   text-align: center;
+  transition: background 0.5s;
 }
+
 
 .container {
   height: 70vh;
   display: flex;
+  padding-top: 20px;
   justify-content: center;
   align-items: center;
 }
@@ -81,6 +86,13 @@ body {
   font-size: 8vmin;
   color: #b0413e;
   background-color: #ffffc7;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.box:not(:disabled):hover {
+  background: #ffe082;
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
 #reset-btn {
@@ -104,6 +116,13 @@ body {
 #msg {
   color: #ffffc7;
   font-size: 5vmin;
+  animation: pop-in 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.7); opacity: 0; }
+  80% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
 }
 
 .msg-container {
