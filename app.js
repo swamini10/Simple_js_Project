@@ -52,8 +52,13 @@ function aiMove() {
     if (box.innerText === "") emptyBoxes.push(idx);
   });
   if (emptyBoxes.length === 0) return;
-  // Pick a random empty box
-  let moveIdx = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+
+  // Try to win or block O from winning
+  let moveIdx = findBestMove();
+  if (moveIdx === null) {
+    // Pick a random empty box if no best move
+    moveIdx = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+  }
   boxes[moveIdx].innerText = "X";
   boxes[moveIdx].disabled = true;
   turnO = true;
@@ -62,6 +67,27 @@ function aiMove() {
   if (count === 9 && !isWinner) {
     gameDraw();
   }
+}
+
+// AI tries to win, then block, else random
+function findBestMove() {
+  // Try to win
+  for (let pattern of winPatterns) {
+    let [a, b, c] = pattern;
+    let vals = [boxes[a].innerText, boxes[b].innerText, boxes[c].innerText];
+    if (vals.filter(v => v === "X").length === 2 && vals.includes("")) {
+      return pattern[vals.indexOf("")];
+    }
+  }
+  // Try to block O
+  for (let pattern of winPatterns) {
+    let [a, b, c] = pattern;
+    let vals = [boxes[a].innerText, boxes[b].innerText, boxes[c].innerText];
+    if (vals.filter(v => v === "O").length === 2 && vals.includes("")) {
+      return pattern[vals.indexOf("")];
+    }
+  }
+  return null;
 }
 
 const gameDraw = () => {
